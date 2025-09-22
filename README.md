@@ -1,6 +1,8 @@
 # 🧠 AI Agent for Online Boutique – GKE Hackathon
 
-## 🔗 Hosted Demo
+---
+
+**🔗 Hosted Demo**
 - Project URL: https://34-54-178-42.nip.io  
 - API Routes:
   - `/api/recommend/demo-user`
@@ -119,7 +121,7 @@ Even when APIs fail, the agent parses “Hot Products” directly from the front
 ---
 
 ## 📊 Architecture Diagram
-```mermaid
+
 flowchart LR
   User((User)) --> Ingress
   Ingress -->|/| Frontend[Online Boutique Frontend]
@@ -134,7 +136,6 @@ flowchart LR
     AI
     Catalog
   end
-```
 
 ---
 
@@ -207,5 +208,6 @@ Video Demo: https://youtu.be/DuM6I7Rh_no
 ## 👩‍💻 Author
 
 **Sweety Seelam**
+
 
 Business Analyst & Aspiring Data Scientist
