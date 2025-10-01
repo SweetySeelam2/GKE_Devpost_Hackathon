@@ -3,16 +3,20 @@
 ---
 
 **🔗 Hosted Demo**
-- Project URL: https://34-54-178-42.nip.io  
-- API Routes:
-  - `/api/recommend/demo-user`
-  - `/api/health/details`
+- Project URL: https://34-54-178-42.nip.io                              
+- API Routes:                                                    
+  - `/api/recommend/demo-user`                                                          
+  - `/api/health/details`                                                 
 
 ## 📘 Description
 
 **📖 Overview**
 
-This project extends Google’s Online Boutique microservices demo application with a new AI Agent microservice deployed on Google Kubernetes Engine (GKE). Instead of modifying existing services, the agent acts as an external intelligent layer that observes, queries, and enhances the application’s behavior — providing personalized recommendations, diagnostics, and AI reasoning. I deployed a new FastAPI service on GKE that enhances the app with **AI-powered product recommendations**.
+This project extends Google’s Online Boutique microservices demo application with a new AI Agent microservice deployed on Google Kubernetes Engine (GKE). 
+
+Instead of modifying existing services, the agent acts as an external intelligent layer that observes, queries, and enhances the application’s behavior — providing personalized recommendations, diagnostics, and AI reasoning. 
+
+I deployed a new FastAPI service on GKE that enhances the app with **AI-powered product recommendations**.
 
 ---
 
@@ -121,35 +125,34 @@ Even when APIs fail, the agent parses “Hot Products” directly from the front
 ---
 
 ## 📊 Architecture Diagram
-
-flowchart LR                                
-  User((User)) --> Ingress                                          
-  Ingress -->|/| Frontend[Online Boutique Frontend]                                                 
-  Ingress -->|/api| AI[AI Agent (FastAPI + Gemini) on GKE]                                              
-  AI -->|HTTP scrape /api/products| Frontend                  
-  AI -->|env vars| CFG[(Config: FRONTEND_URL, CATALOG_URL)]                              
-  AI -. optional .->|gRPC via shim| Catalog[(productcatalogservice:3550)]                                              
-  AI -->|JSON| Response[(Top-3 recommendations)]                                                 
-  subgraph GKE                                             
-    Ingress                                    
-    Frontend                                    
-    AI                                            
-    Catalog                                                             
-  end                      
+                              
+  User((User)) --> Ingress                                                                                        
+  Ingress -->|/| Frontend[Online Boutique Frontend]                                                                                                   
+  Ingress -->|/api| AI[AI Agent (FastAPI + Gemini) on GKE]                                                                                        
+  AI -->|HTTP scrape /api/products| Frontend                                                              
+  AI -->|env vars| CFG[(Config: FRONTEND_URL, CATALOG_URL)]                                                                                    
+  AI -. optional .->|gRPC via shim| Catalog[(productcatalogservice:3550)]                                                                                
+  AI -->|JSON| Response[(Top-3 recommendations)]                                                                                              
+  subgraph GKE                                                                  
+    Ingress                                                                     
+    Frontend                                                                      
+    AI                                                                          
+    Catalog                                                                                                  
+  end                                                          
 
 ---
 
 ## 🚀 Deployment
 
-**Build and push:**
-```bash
-gcloud builds submit --tag us-central1-docker.pkg.dev/PROJECT/ai-agents/ai-agent:v14
+**Build and push:**                                                
+```bash                                             
+gcloud builds submit --tag us-central1-docker.pkg.dev/PROJECT/ai-agents/ai-agent:v14                                                 
 ```
 
-**Update Deployment:**
-```bash
-kubectl set image deploy/ai-agent ai-agent=us-central1-docker.pkg.dev/PROJECT/ai-agents/ai-agent:v14
-kubectl rollout status deploy/ai-agent
+**Update Deployment:**                                   
+```bash                                 
+kubectl set image deploy/ai-agent ai-agent=us-central1-docker.pkg.dev/PROJECT/ai-agents/ai-agent:v14                                                                   
+kubectl rollout status deploy/ai-agent                                                    
 ```
 
 **Access at Ingress URL.**
@@ -168,22 +171,22 @@ kubectl rollout status deploy/ai-agent
 
 ---
 
-## Testing Instructions
-**1. Open the hosted Online Boutique frontend:**
-   https://34-54-178-42.nip.io  
+## Testing Instructions                                                                     
+**1. Open the hosted Online Boutique frontend:**                                                            
+   https://34-54-178-42.nip.io                                           
 
-**2. Test the AI Agent recommendation endpoint:**  
-curl -sS https://34-54-178-42.nip.io/api/recommend/demo-user | jq .
-→ Returns a JSON object with 3 recommended products (id, name, price, picture).
+**2. Test the AI Agent recommendation endpoint:**                                                           
+curl -sS https://34-54-178-42.nip.io/api/recommend/demo-user | jq .                                                    
+→ Returns a JSON object with 3 recommended products (id, name, price, picture).                                         
 
-**3. Test diagnostics endpoint:**  
-curl -sS https://34-54-178-42.nip.io/api/health/details | jq .
-→ Shows component health (frontend OK, catalog skipped).
+**3. Test diagnostics endpoint:**                                               
+curl -sS https://34-54-178-42.nip.io/api/health/details | jq .                                           
+→ Shows component health (frontend OK, catalog skipped).                                         
 
-**4. If local testing:** 
-kubectl port-forward svc/ai-agent 8081:80
-curl -sS http://127.0.0.1:8081/api/recommend/demo-user
-curl -sS http://127.0.0.1:8081/api/health/details
+**4. If local testing:**                                                                              
+kubectl port-forward svc/ai-agent 8081:80                                           
+curl -sS http://127.0.0.1:8081/api/recommend/demo-user                                     
+curl -sS http://127.0.0.1:8081/api/health/details                                              
 
 ---
 
@@ -209,6 +212,6 @@ Video Demo: https://youtu.be/DuM6I7Rh_no
 
 **Sweety Seelam**
 
-
 Business Analyst & Aspiring Data Scientist
+
 
