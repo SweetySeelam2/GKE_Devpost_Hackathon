@@ -8,6 +8,8 @@
   - `/api/recommend/demo-user`                                                          
   - `/api/health/details`                                                 
 
+---
+
 ## 📘 Description
 
 **📖 Overview**
@@ -124,24 +126,6 @@ Even when APIs fail, the agent parses “Hot Products” directly from the front
 
 ---
 
-## 📊 Architecture Diagram
-                              
-  User((User)) --> Ingress                                                                                        
-  Ingress -->|/| Frontend[Online Boutique Frontend]                                                                                                   
-  Ingress -->|/api| AI[AI Agent (FastAPI + Gemini) on GKE]                                                                                        
-  AI -->|HTTP scrape /api/products| Frontend                                                              
-  AI -->|env vars| CFG[(Config: FRONTEND_URL, CATALOG_URL)]                                                                                    
-  AI -. optional .->|gRPC via shim| Catalog[(productcatalogservice:3550)]                                                                                
-  AI -->|JSON| Response[(Top-3 recommendations)]                                                                                              
-  subgraph GKE                                                                  
-    Ingress                                                                     
-    Frontend                                                                      
-    AI                                                                          
-    Catalog                                                                                                  
-  end                                                          
-
----
-
 ## 🚀 Deployment
 
 **Build and push:**                                                
@@ -213,5 +197,6 @@ Video Demo: https://youtu.be/DuM6I7Rh_no
 **Sweety Seelam**
 
 Business Analyst & Aspiring Data Scientist
+
 
 
